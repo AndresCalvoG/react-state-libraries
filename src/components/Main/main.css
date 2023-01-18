@@ -1,0 +1,6 @@
+.main-content {
+  width: 70%;
+  height: 90vh;
+  border: 2px solid red;
+  overflow: scroll;
+}
