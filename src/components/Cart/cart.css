@@ -1,0 +1,40 @@
+.list {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+.list article {
+  width: 100%;
+  margin: 20px;
+}
+.list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.list-container h1 {
+  font-size: 35px;
+  margin-bottom: 30px;
+}
+.list-container ul {
+  width: 100%;
+  text-decoration: none;
+}
+.item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  border-bottom: 1px solid black;
+  padding-bottom: 5px;
+}
+.item span {
+  width: 100px;
+  height: 30px;
+  background-color: red;
+  color: white;
+  border-radius: 20px;
+  text-align: center;
+}
+.item span:hover {
+  cursor: pointer;
+}
