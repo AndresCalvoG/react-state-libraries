@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Header from "../Header/Header";
+import Loader from "../Loader/Loader";
 import "./layout.css";
 
 function Layout({ children }) {
@@ -11,6 +12,7 @@ function Layout({ children }) {
     <>
       <Header />
       <main className="content">{children}</main>
+      <Loader />
     </>
   );
 }
