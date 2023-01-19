@@ -2,7 +2,6 @@ section {
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: 100%;
-  border: 2px solid blue;
   padding: 10px;
 }
 .card {
@@ -41,4 +40,5 @@ section {
   border: none;
   color: white;
   border-radius: 5px;
+  cursor: pointer;
 }

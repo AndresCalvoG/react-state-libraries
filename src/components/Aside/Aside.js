@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { AppContext } from "../../context";
 import "./aside.css";
 
 function Aside() {
+  const { selectedProduct } = React.useContext(AppContext);
+
+  useEffect(() => {
+    console.log("Aside: re-render");
+  });
+
   return (
     <aside>
-      <h1>Item Name</h1>
+      <h1>{selectedProduct.title}</h1>
       <figure>
-        <img src="" alt="product" />
+        <img src={selectedProduct.image} alt="product" />
       </figure>
-      <p>details:</p>
+      <p>
+        <b> Description:</b>
+        <br />
+        {selectedProduct.description}
+      </p>
+      <span>Price: ${selectedProduct.price}</span>
     </aside>
   );
 }

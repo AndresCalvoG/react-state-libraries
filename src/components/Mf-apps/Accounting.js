@@ -18,8 +18,9 @@ const runScript = async (url) => {
 };
 
 const loadApp = async (url, app) => {
-  const result = await runScript(url);
-  console.log(result);
+  //const result =
+  await runScript(url);
+  //console.log(result);
   return window[app];
 };
 
@@ -28,7 +29,7 @@ const MFE = () => {
     const fetchBP = async () => {
       const domElement = document.getElementById("App-bp");
       const result = await loadApp(blackPantherURL, "accounting");
-      console.log(result);
+      //console.log(result);
       mountRootParcel(result, { domElement });
     };
     fetchBP();

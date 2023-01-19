@@ -25,6 +25,7 @@
 }
 .header-cart {
   font-size: 20px;
+  cursor: pointer;
 }
 
 @keyframes App-logo-spin {
