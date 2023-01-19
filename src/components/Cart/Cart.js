@@ -3,10 +3,17 @@ import { AppContext } from "../../context";
 import "./cart.css";
 
 function Cart() {
-  const { cartProducts, deleteFromCart } = React.useContext(AppContext);
+  const { cartProducts, deleteFromCart, setLoading } =
+    React.useContext(AppContext);
 
   useEffect(() => {
     console.log("Cart: re-render");
+    const timer = setTimeout(() => {
+      console.log("Cargado");
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
   });
 
   return (
