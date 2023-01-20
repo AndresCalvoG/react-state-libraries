@@ -29,7 +29,7 @@ function AppProvider(props) {
     onLoading();
     const result = await fetch(url);
     const data = await result.json();
-    console.log(data);
+    //console.log(data);
     onSuccess(data);
     onSelectProduct(data[0]);
   }

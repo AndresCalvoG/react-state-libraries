@@ -38,8 +38,8 @@ const reducerObject = (state, payload) => ({
 });
 
 const reducer = (state, action) => {
-  console.log(state);
-  console.log(action);
+  //console.log(state);
+  //console.log(action);
   if (reducerObject(state, action.payload)[action.type]) {
     return reducerObject(state, action.payload)[action.type];
   } else {
