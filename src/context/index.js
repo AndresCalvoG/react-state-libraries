@@ -1,11 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { reducer, initialState, actionsTypes } from "../UseReducer/index";
 const AppContext = React.createContext();
 
 function AppProvider(props) {
-  const [products, setProducts] = useState([]);
-  const [selectedProduct, setSelectedProduct] = useState({});
-  const [cartProducts, setCartProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [state, dispatch] = React.useReducer(reducer, initialState);
+
+  const { products, selectedProduct, cartProducts, loading } = state;
+
+  //ACTION CREATORS
+  const onLoading = () => dispatch({ type: actionsTypes.loading });
+  const onSuccess = (data) =>
+    dispatch({ type: actionsTypes.success, payload: data });
+  const onSelectProduct = (data) =>
+    dispatch({ type: actionsTypes.select, payload: data });
+  const onChangeToCart = (data) =>
+    dispatch({ type: actionsTypes.change, payload: data });
+  const offLoading = () => dispatch({ type: actionsTypes.finish });
+
+  //Variables
   let timer = 0;
 
   useEffect(() => {
@@ -14,13 +26,12 @@ function AppProvider(props) {
   });
 
   async function fetchData(url) {
-    setLoading(true);
+    onLoading();
     const result = await fetch(url);
     const data = await result.json();
-    //console.log(data);
-    setProducts(data);
-    setSelectedProduct(data[0]);
-    setLoading(false);
+    console.log(data);
+    onSuccess(data);
+    onSelectProduct(data[0]);
   }
 
   function selectProduct(id) {
@@ -28,24 +39,24 @@ function AppProvider(props) {
       return e.id === id;
     });
     //console.log(product);
-    setSelectedProduct(product);
+    onSelectProduct(product);
   }
 
   function addToCart(id) {
     const product = products.find((e) => {
       return e.id === id;
     });
-    setCartProducts([...cartProducts, product]);
+    onChangeToCart([...cartProducts, product]);
   }
 
   function deleteFromCart(index) {
-    setLoading(true);
+    onLoading();
     let newCartProducts = [...cartProducts];
     newCartProducts.splice(index, 1);
     //console.log(newCartProducts);
-    setCartProducts(newCartProducts);
+    onChangeToCart(newCartProducts);
     timer = setTimeout(() => {
-      setLoading(false);
+      offLoading();
     }, 1000);
   }
 
@@ -60,7 +71,6 @@ function AppProvider(props) {
         addToCart,
         deleteFromCart,
         loading,
-        setLoading,
       }}
     >
       {props.children}

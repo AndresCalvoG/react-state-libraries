@@ -1,26 +1,50 @@
-// function UseReducer() {
-//   const [state, dispatch] = React.useReducer(reducer, initialState);
-// }
-
 const initialState = {
-  ERROR: {
-    error: true,
-  },
+  products: [],
+  selectedProduct: {},
+  cartProducts: [],
+  loading: false,
 };
 
-const reducerObject = (state) => ({
-  Error: {
+const actionsTypes = {
+  loading: "LOADING",
+  success: "SUCCESS",
+  select: "SELECT",
+  change: "CHANGE",
+  finish: "FINISH",
+};
+
+const reducerObject = (state, payload) => ({
+  [actionsTypes.loading]: {
     ...state,
-    error: true,
+    loading: true,
+  },
+  [actionsTypes.success]: {
+    ...state,
+    products: payload,
+    loading: false,
+  },
+  [actionsTypes.select]: {
+    ...state,
+    selectedProduct: payload,
+  },
+  [actionsTypes.change]: {
+    ...state,
+    cartProducts: payload,
+  },
+  [actionsTypes.finish]: {
+    ...state,
+    loading: false,
   },
 });
 
 const reducer = (state, action) => {
-  if (reducerObject(state)[action.type]) {
-    return reducerObject(state)[action.type];
+  console.log(state);
+  console.log(action);
+  if (reducerObject(state, action.payload)[action.type]) {
+    return reducerObject(state, action.payload)[action.type];
   } else {
     return state;
   }
 };
 
-export { reducer, initialState };
+export { reducer, initialState, actionsTypes };
