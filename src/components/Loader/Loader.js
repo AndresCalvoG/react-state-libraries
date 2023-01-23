@@ -1,9 +1,11 @@
 import React from "react";
-import { AppContext } from "../../context";
+import { useRecoilValue } from "recoil";
+import { loadingState } from "../../atoms/productsState";
 import "./loader.css";
 
 function Loader() {
-  const { loading } = React.useContext(AppContext);
+  const loading = useRecoilValue(loadingState);
+
   let show = "";
   if (loading) {
     show = "container";

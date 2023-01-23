@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { AppContext } from "../../context";
+import { useRecoilValue } from "recoil";
+import { selectedProductState } from "../../atoms/productsState";
 import "./aside.css";
 
 function Aside() {
-  const { selectedProduct } = React.useContext(AppContext);
+  const selectedProduct = useRecoilValue(selectedProductState);
 
   useEffect(() => {
     console.log("Aside: re-render");

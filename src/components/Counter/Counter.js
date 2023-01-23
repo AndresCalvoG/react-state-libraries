@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-
-import { AppContext } from "../../context";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { cartProductsList, loadingState } from "../../atoms/productsState";
 import { useHistory } from "react-router-dom";
 
 function Counter() {
   const history = useHistory();
-
-  const { cartProducts, setLoading } = React.useContext(AppContext);
+  const cartProducts = useRecoilValue(cartProductsList);
+  const setLoading = useSetRecoilState(loadingState);
 
   useEffect(() => {
     console.log("Counter: re-render");
@@ -15,7 +15,7 @@ function Counter() {
     <span
       className="header-cart"
       onClick={() => {
-        setLoading(true);
+        setLoading((prev) => true);
         history.push("/cart");
       }}
     >

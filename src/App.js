@@ -4,7 +4,7 @@ import Routes from "./components/Routes/Routes";
 import Layout from "./components/Layout/Layout";
 import { BrowserRouter } from "react-router-dom";
 import Aside from "./components/Aside/Aside";
-import { AppProvider } from "./context/index";
+import { RecoilRoot } from "recoil";
 import "./app.css";
 
 function App() {
@@ -13,14 +13,14 @@ function App() {
   });
   return (
     <BrowserRouter>
-      <AppProvider>
+      <RecoilRoot>
         <Layout>
           <Aside />
           <Main>
             <Routes />
           </Main>
         </Layout>
-      </AppProvider>
+      </RecoilRoot>
     </BrowserRouter>
   );
 }

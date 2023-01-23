@@ -1,20 +1,57 @@
 import React, { useEffect } from "react";
-import { AppContext } from "../../context";
+import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
+import {
+  productsList,
+  loadingState,
+  selectedProductState,
+  cartProductsList,
+} from "../../atoms/productsState";
+
 import "./store.css";
 
 const URL = "https://fakestoreapi.com/products";
 
 function Store() {
-  const { products, fetchData, selectProduct, addToCart } =
-    React.useContext(AppContext);
+  //const { products, fetchData, selectProduct, addToCart }
+  //const products = useRecoilValue(productsList);
+  //const setProducts = useSetRecoilState(productsList);
+  const [products, setProducts] = useRecoilState(productsList);
+  const setLoading = useSetRecoilState(loadingState);
+  const setSelectedProduct = useSetRecoilState(selectedProductState);
+  const [cartProducts, setCartProducts] = useRecoilState(cartProductsList);
+  //console.log(products);
 
   useEffect(() => {
+    async function fetchData(url) {
+      setLoading((prev) => true);
+      const result = await fetch(url);
+      const data = await result.json();
+      //console.log(data);
+      setProducts((prev) => [...data]);
+      setSelectedProduct((prev) => data[0]);
+      setLoading((prev) => false);
+    }
     fetchData(URL);
   }, []);
 
   useEffect(() => {
     console.log("store: re-render");
   });
+
+  function selectProduct(id) {
+    const product = products.find((e) => {
+      return e.id === id;
+    });
+    //console.log(product);
+    setSelectedProduct(product);
+  }
+
+  function addToCart(id) {
+    const product = products.find((e) => {
+      return e.id === id;
+    });
+    setCartProducts([...cartProducts, product]);
+  }
 
   return (
     <section>

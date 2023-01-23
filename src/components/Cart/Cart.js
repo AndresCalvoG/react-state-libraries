@@ -1,20 +1,34 @@
 import React, { useEffect } from "react";
-import { AppContext } from "../../context";
+import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
+import { loadingState, cartProductsList } from "../../atoms/productsState";
+
 import "./cart.css";
 
 function Cart() {
-  const { cartProducts, deleteFromCart, setLoading } =
-    React.useContext(AppContext);
+  //const { cartProducts, deleteFromCart, setLoading }
+  const setLoading = useSetRecoilState(loadingState);
+  const [cartProducts, setCartProducts] = useRecoilState(cartProductsList);
 
   useEffect(() => {
     console.log("Cart: re-render");
     const timer = setTimeout(() => {
-      console.log("Cargado");
-      setLoading(false);
+      //console.log("Cargado");
+      setLoading((prev) => false);
     }, 1000);
 
     return () => clearTimeout(timer);
   });
+
+  function deleteFromCart(index) {
+    setLoading((prev) => true);
+    let newCartProducts = [...cartProducts];
+    newCartProducts.splice(index, 1);
+    //console.log(newCartProducts);
+    setCartProducts((prev) => newCartProducts);
+    const timer = setTimeout(() => {
+      setLoading((prev) => false);
+    }, 1000);
+  }
 
   return (
     <section className="list">
