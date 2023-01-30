@@ -1,4 +1,4 @@
-import { hookstate } from "@hookstate/core";
+import { hookstate, useHookstate } from "@hookstate/core";
 
 const initialState = {
   products: [],

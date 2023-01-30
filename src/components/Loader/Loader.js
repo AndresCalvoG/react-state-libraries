@@ -1,11 +1,12 @@
 import React from "react";
-import { AppContext } from "../../context";
+import { useHookstate } from "@hookstate/core";
+import store from "../../hookstate/state";
 import "./loader.css";
 
 function Loader() {
-  const { loading } = React.useContext(AppContext);
+  const { loading } = useHookstate(store);
   let show = "";
-  if (loading) {
+  if (loading.get()) {
     show = "container";
   } else {
     show = "hide";

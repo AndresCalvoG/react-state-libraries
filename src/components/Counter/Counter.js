@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-
-import { AppContext } from "../../context";
+import { useHookstate } from "@hookstate/core";
+import store from "../../hookstate/state";
 import { useHistory } from "react-router-dom";
 
 function Counter() {
   const history = useHistory();
 
-  const { cartProducts, setLoading } = React.useContext(AppContext);
+  const { cartProducts, loading } = useHookstate(store);
 
   useEffect(() => {
     console.log("Counter: re-render");
@@ -15,11 +15,11 @@ function Counter() {
     <span
       className="header-cart"
       onClick={() => {
-        setLoading(true);
+        loading.set(true);
         history.push("/cart");
       }}
     >
-      Cart Items: {cartProducts.length}
+      Cart Items: {cartProducts.get().length}
     </span>
   );
 }

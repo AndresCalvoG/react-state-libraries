@@ -11,7 +11,7 @@ function App() {
   return (
     <header className="header">
       <img src={logo} className="header-logo" alt="logo" />
-      <h1 className="header-title"> My Store with useReducer</h1>
+      <h1 className="header-title"> My Store with Hookstate</h1>
       <Counter />
     </header>
   );

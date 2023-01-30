@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { AppContext } from "../../context";
+import { useHookstate } from "@hookstate/core";
+import store from "../../hookstate/state";
 import "./aside.css";
 
 function Aside() {
-  const { selectedProduct } = React.useContext(AppContext);
+  const { selectedProduct } = useHookstate(store);
 
   useEffect(() => {
     console.log("Aside: re-render");
@@ -11,16 +12,16 @@ function Aside() {
 
   return (
     <aside>
-      <h1>{selectedProduct.title}</h1>
+      <h1>{selectedProduct.get().title}</h1>
       <figure>
-        <img src={selectedProduct.image} alt="product" />
+        <img src={selectedProduct.get().image} alt="product" />
       </figure>
       <p>
         <b> Description:</b>
         <br />
-        {selectedProduct.description}
+        {selectedProduct.get().description}
       </p>
-      <span>Price: ${selectedProduct.price}</span>
+      <span>Price: ${selectedProduct.get().price}</span>
     </aside>
   );
 }
