@@ -1,9 +1,11 @@
 import React from "react";
-import { AppContext } from "../../context";
+import { useAtom } from "jotai";
+import { loadingState } from "../../jotai";
 import "./loader.css";
 
 function Loader() {
-  const { loading } = React.useContext(AppContext);
+  const [loading] = useAtom(loadingState);
+
   let show = "";
   if (loading) {
     show = "container";

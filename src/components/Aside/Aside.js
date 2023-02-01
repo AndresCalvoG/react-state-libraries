@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { AppContext } from "../../context";
+import { useAtom } from "jotai";
+import { selectedProductState } from "../../jotai";
 import "./aside.css";
 
 function Aside() {
-  const { selectedProduct } = React.useContext(AppContext);
+  const [selectedProduct] = useAtom(selectedProductState);
 
   useEffect(() => {
     console.log("Aside: re-render");

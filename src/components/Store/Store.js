@@ -1,20 +1,52 @@
 import React, { useEffect } from "react";
-import { AppContext } from "../../context";
+import { useAtom } from "jotai";
+import {
+  productState,
+  loadingState,
+  selectedProductState,
+  cartProductsState,
+} from "../../jotai";
 import "./store.css";
 
 const URL = "https://fakestoreapi.com/products";
 
 function Store() {
-  const { products, fetchData, selectProduct, addToCart } =
-    React.useContext(AppContext);
+  const [products, setProducts] = useAtom(productState);
+  const [loading, setLoading] = useAtom(loadingState);
+  const [selectedProduct, setSelectedProduct] = useAtom(selectedProductState);
+  const [cartProducts, setCartProducts] = useAtom(cartProductsState);
 
   useEffect(() => {
+    async function fetchData(url) {
+      setLoading(true);
+      const result = await fetch(url);
+      const data = await result.json();
+      //console.log(data);
+      setProducts(data);
+      setSelectedProduct(data[0]);
+      setLoading(false);
+    }
     fetchData(URL);
   }, []);
 
   useEffect(() => {
     console.log("store: re-render");
   });
+
+  function selectProduct(id) {
+    const product = products.find((e) => {
+      return e.id === id;
+    });
+    //console.log(product);
+    setSelectedProduct(product);
+  }
+
+  function addToCart(id) {
+    const product = products.find((e) => {
+      return e.id === id;
+    });
+    setCartProducts([...cartProducts, product]);
+  }
 
   return (
     <section>

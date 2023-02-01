@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { AppContext } from "../../context";
+import { useAtom } from "jotai";
+import { cartProductsState, loadingState } from "../../jotai";
 import "./cart.css";
 
 function Cart() {
-  const { cartProducts, deleteFromCart, setLoading } =
-    React.useContext(AppContext);
+  const [loading, setLoading] = useAtom(loadingState);
+  const [cartProducts, setCartProducts] = useAtom(cartProductsState);
 
   useEffect(() => {
     console.log("Cart: re-render");
@@ -15,6 +16,17 @@ function Cart() {
 
     return () => clearTimeout(timer);
   });
+
+  function deleteFromCart(index) {
+    setLoading(true);
+    let newCartProducts = [...cartProducts];
+    newCartProducts.splice(index, 1);
+    //console.log(newCartProducts);
+    setCartProducts(newCartProducts);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }
 
   return (
     <section className="list">

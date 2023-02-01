@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-
-import { AppContext } from "../../context";
 import { useHistory } from "react-router-dom";
+import { useAtom } from "jotai";
+import { cartProductsState, loadingState } from "../../jotai";
 
 function Counter() {
   const history = useHistory();
-
-  const { cartProducts, setLoading } = React.useContext(AppContext);
+  const [cartProducts] = useAtom(cartProductsState);
+  const [loading, setLoading] = useAtom(loadingState);
 
   useEffect(() => {
     console.log("Counter: re-render");
