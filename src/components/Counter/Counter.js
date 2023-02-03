@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
-
-import { AppContext } from "../../context";
+import { useGlobalState } from "../../zustand";
 import { useHistory } from "react-router-dom";
 
 function Counter() {
   const history = useHistory();
-
-  const { cartProducts, setLoading } = React.useContext(AppContext);
+  const { cartProducts, setLoading } = useGlobalState((state) => state);
 
   useEffect(() => {
     console.log("Counter: re-render");

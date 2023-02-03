@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
-import { AppContext } from "../../context";
+import { useGlobalState } from "../../zustand";
 import "./cart.css";
 
 function Cart() {
-  const { cartProducts, deleteFromCart, setLoading } =
-    React.useContext(AppContext);
+  const { cartProducts, setLoading, setCartProducts } = useGlobalState();
 
   useEffect(() => {
     console.log("Cart: re-render");
@@ -15,6 +14,17 @@ function Cart() {
 
     return () => clearTimeout(timer);
   });
+
+  function deleteFromCart(index) {
+    setLoading(true);
+    let newCartProducts = [...cartProducts];
+    newCartProducts.splice(index, 1);
+    //console.log(newCartProducts);
+    setCartProducts(newCartProducts);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+  }
 
   return (
     <section className="list">

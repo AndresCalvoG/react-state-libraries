@@ -1,9 +1,10 @@
 import React from "react";
-import { AppContext } from "../../context";
+import { useGlobalState } from "../../zustand";
 import "./loader.css";
 
 function Loader() {
-  const { loading } = React.useContext(AppContext);
+  const { loading } = useGlobalState();
+
   let show = "";
   if (loading) {
     show = "container";

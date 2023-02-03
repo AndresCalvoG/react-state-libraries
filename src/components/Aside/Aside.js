@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
-import { AppContext } from "../../context";
+import { useGlobalState } from "../../zustand";
 import "./aside.css";
 
 function Aside() {
-  const { selectedProduct } = React.useContext(AppContext);
-
+  const { selectedProduct } = useGlobalState();
   useEffect(() => {
     console.log("Aside: re-render");
   });
