@@ -47,13 +47,9 @@ function Store() {
     <section>
       {products.get().map((element) => {
         return (
-          <article
-            key={element.id}
-            className="card"
-            onClick={() => selectProduct(element.id)}
-          >
+          <article key={element.id} className="card">
             <h1>{element.title}</h1>
-            <figure>
+            <figure onClick={() => selectProduct(element.id)}>
               <img src={element.image} alt="product" />
             </figure>
             <p>{element.category}</p>
