@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
+import { AppContext } from "../../context";
 import "./cart.css";
 
 function Cart() {
-  const cartProducts = [];
-  const deleteFromCart = () => {};
-  const setLoading = false;
+  const { cartProducts, deleteFromCart, setLoading } =
+    React.useContext(AppContext);
 
   useEffect(() => {
     console.log("Cart: re-render");

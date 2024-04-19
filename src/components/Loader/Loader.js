@@ -1,9 +1,10 @@
 import React from "react";
+import { AppContext } from "../../context";
 import "./loader.css";
 
 function Loader() {
+  const { loading } = React.useContext(AppContext);
   let show = "";
-  let loading = false;
   if (loading) {
     show = "container";
   } else {

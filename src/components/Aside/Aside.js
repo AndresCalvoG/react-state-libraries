@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
+import { AppContext } from "../../context";
 import "./aside.css";
 
 function Aside() {
-  const selectedProduct = {};
+  const { selectedProduct } = React.useContext(AppContext);
 
   useEffect(() => {
     console.log("Aside: re-render");

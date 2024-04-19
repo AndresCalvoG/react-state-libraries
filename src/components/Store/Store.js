@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
+import { AppContext } from "../../context";
 import "./store.css";
 
 const URL = "https://fakestoreapi.com/products";
 
 function Store() {
-  const products = [];
-  const fetchData = () => {};
-  const selectProduct = () => {};
-  const addToCart = () => {};
+  const { products, fetchData, selectProduct, addToCart } =
+    React.useContext(AppContext);
 
   useEffect(() => {
     fetchData(URL);
