@@ -1,18 +1,6 @@
-import { registerApplication, start } from "single-spa";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
 
-registerApplication({
-  name: "root",
-  app: () => import("./root-app.js"),
-  activeWhen: "/",
-});
-
-registerApplication({
-  name: "app",
-  app: () =>
-    import(/* webpackIgnore: true */ "http://localhost:5173/src/main.js"),
-  activeWhen: "/orders",
-});
-
-start({
-  urlRerouteOnly: true,
-});
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);

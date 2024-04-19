@@ -1,10 +1,18 @@
+import React, { useEffect } from "react";
 import Header from "../Header/Header";
+import Loader from "../Loader/Loader";
+import "./layout.css";
 
 function Layout({ children }) {
+  useEffect(() => {
+    console.log("Layout: re-render");
+  });
+
   return (
     <>
       <Header />
-      {children}
+      <main className="content">{children}</main>
+      <Loader />
     </>
   );
 }
