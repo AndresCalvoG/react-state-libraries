@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import "./aside.css";
 
 function Aside() {
-  const selectedProduct = {};
+  const selectedProduct = useSelector(
+    (state) => state.products.selectedProduct
+  );
 
   useEffect(() => {
     console.log("Aside: re-render");
@@ -10,7 +13,7 @@ function Aside() {
 
   return (
     <aside>
-      <h1>{selectedProduct.title}</h1>
+      <h1>{selectedProduct.title || "Select a product"}</h1>
       <figure>
         <img src={selectedProduct.image} alt="product" />
       </figure>
@@ -19,7 +22,7 @@ function Aside() {
         <br />
         {selectedProduct.description}
       </p>
-      <span>Price: ${selectedProduct.price}</span>
+      <span>Price: ${selectedProduct.price || 0}</span>
     </aside>
   );
 }

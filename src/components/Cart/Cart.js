@@ -1,16 +1,19 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "./cart.css";
 
 function Cart() {
-  const cartProducts = [];
-  const deleteFromCart = () => {};
-  const setLoading = false;
+  const dispatch = useDispatch();
+  const cartProducts = useSelector((state) => state.products.cartProducts);
+  const deleteFromCart = (product) => {
+    dispatch({ type: "REMOVE_FROM_CART", payload: product.id });
+  };
 
   useEffect(() => {
     console.log("Cart: re-render");
     const timer = setTimeout(() => {
       console.log("Cargado");
-      setLoading(false);
+      dispatch({ type: "LOADING", payload: false });
     }, 1000);
 
     return () => clearTimeout(timer);
@@ -21,11 +24,11 @@ function Cart() {
       <article className="list-container">
         <h1>Product's Cart</h1>
         <ul>
-          {cartProducts.map((e, index) => {
+          {cartProducts.map((product, index) => {
             return (
-              <li key={e.id * Math.random()} className="item">
-                <h3>{e.title}</h3>
-                <span onClick={() => deleteFromCart(index)}>Delete</span>
+              <li key={product.id * Math.random()} className="item">
+                <h3>{product.title}</h3>
+                <span onClick={() => deleteFromCart(product)}>Delete</span>
               </li>
             );
           })}
