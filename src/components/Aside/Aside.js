@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import "./aside.css";
 
 function Aside() {
-  const selectedProduct = {};
+  const { selectedProduct } = useSelector((state) => state.products);
 
   useEffect(() => {
     console.log("Aside: re-render");

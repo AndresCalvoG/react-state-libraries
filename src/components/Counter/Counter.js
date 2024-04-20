@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "../../redux/slices/products/index";
 
 function Counter() {
   const history = useHistory();
+  const dispatch = useDispatch();
 
-  const cartProducts = [];
-  const setLoading = false;
+  const { cartProducts } = useSelector((state) => state.products);
 
   useEffect(() => {
     console.log("Counter: re-render");
@@ -14,7 +16,7 @@ function Counter() {
     <span
       className="header-cart"
       onClick={() => {
-        setLoading(true);
+        dispatch(setLoading());
         history.push("/cart");
       }}
     >
