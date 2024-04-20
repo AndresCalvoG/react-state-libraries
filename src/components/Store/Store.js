@@ -2,27 +2,24 @@ import React, { useEffect } from "react";
 import { selectProduct, addToCart } from "../../redux/slices/products";
 import { productSlice } from "../../redux/slices/products";
 import { useDispatch, useSelector } from "react-redux";
+import { useProductListQuery } from "../../redux/api/api";
 import "./store.css";
-
-const URL = "https://fakestoreapi.com/products";
 
 function Store() {
   const { setLoading, setProducts, setSelectedProduct } = productSlice.actions;
   const { products, cartProducts } = useSelector((state) => state.products);
+  const { data, isLoading } = useProductListQuery();
   const dispatch = useDispatch();
 
-  const fetchData = async (url) => {
-    dispatch(setLoading());
-    const result = await fetch(url);
-    const data = await result.json();
-    //console.log(data);
-    dispatch(setProducts(data));
-    dispatch(setSelectedProduct(data[0]));
-  };
-
   useEffect(() => {
-    fetchData(URL);
-  }, []);
+    if (isLoading) {
+      dispatch(setLoading());
+    }
+    if (data) {
+      dispatch(setProducts(data));
+      dispatch(setSelectedProduct(data[0]));
+    }
+  }, [data]);
 
   useEffect(() => {
     console.log("store: re-render");
